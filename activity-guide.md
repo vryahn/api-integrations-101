@@ -6,6 +6,8 @@ Saturday, November 14, 2026 · Speaker: Bryan Rodríguez Abarca, Technical Produ
 
 Bring a laptop: you do challenges 2 to 5 in Hoppscotch, a web page. Do not install anything and do not create accounts. With a phone you can do Challenge 1 and use GET to check what your team does.
 
+Bring a pencil and paper too. You use them to fill in the table in Challenge 1, to write your predictions before you send a request, and to write the exit ticket.
+
 Tip: every URL is in a box with a copy button.
 
 This guide follows the slides of the class. It only has the slides with an exercise: slides 7 to 12, and the exit ticket on slide 14.
@@ -37,7 +39,7 @@ https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s
 
 **You should see:** the same video. With `t=43s` it starts at 0:43. With `t=0s`, or with no `t`, it starts at the beginning. The `?` sign opens the parameters and `&` separates them.
 
-**Part B: an ad link.** Do not open it. Read it and complete the table.
+**Part B: an ad link.** Do not open it. Read it. Copy the table on paper and complete it with your pencil.
 
 ```
 https://shop.example/sneakers?utm_source=instagram&utm_campaign=buen_fin&fbclid=IwAR0x9
@@ -75,7 +77,7 @@ https://rickandmortyapi.com/api/character/?name=rick&status=alive
 
 **Part D: predict.**
 
-9. Before you open it, predict: what will the server answer?
+9. Before you open it, predict: what will the server answer? Write your prediction on paper.
 
 ```
 https://rickandmortyapi.com/api/character/99999
@@ -165,7 +167,7 @@ The response body is empty: look at the status code above it. Repeat the GET fro
 
 **5. DELETE: cancel it.** Use the `DELETE` method with the URL and your `_id`. The response body is empty again.
 
-**6. GET again.** Predict first: what status code will it return?
+**6. GET again.** Predict first, and write it on paper: what status code will it return?
 
 **Idea:** one URL, four methods, four different results. The URL says *which thing*. The method says *what to do with it*.
 
@@ -180,7 +182,7 @@ The body is the data that travels. You send it with POST, PUT and PATCH. The ser
 **How to read JSON:** braces `{ }` = one object · each line is `"key": value` · brackets `[ ]` = a list.
 
 1. Repeat the POST from Challenge 2 to create a new order, and copy its `_id`.
-2. Predict: if you send a **PUT** with only the customer, what happens to `order`?
+2. Predict, and write it on paper: if you send a **PUT** with only the customer, what happens to `order`?
 
 ```json
 { "customer": "Ana" }
@@ -224,7 +226,7 @@ https://httpbin.org/headers
 **You should see:** the headers YOUR browser sent. You did not ask for them. Compare with a classmate: a laptop and a phone send a different `User-Agent`.
 
 2. In Hoppscotch, send a `GET` to the same URL. First, add your own header in the **Headers** tab: key `X-Student`, value your name. Find it in the response. Look at `User-Agent` too: it is not your browser now. It is `Proxyscotch`, the proxy that sends the request for you.
-3. Predict: what happens if you send a JSON body but you say it is a different format? Repeat the POST from Challenge 2, with the correct body (the first one, with all its quotes). In the **Body** tab, open the Content Type menu, go to the bottom of the list and choose `text/plain`. Keep the same JSON text and send.
+3. Predict, and write it on paper: what happens if you send a JSON body but you say it is a different format? Repeat the POST from Challenge 2, with the correct body (the first one, with all its quotes). In the **Body** tab, open the Content Type menu, go to the bottom of the list and choose `text/plain`. Keep the same JSON text and send.
 
 **Idea:** the server reads the label first. If the label does not match the package, the server rejects it without opening it.
 
@@ -236,7 +238,7 @@ Time: 5 min
 
 The most important header is the one that says who you are.
 
-1. Predict: what happens if you ask a private API for something and you do not say who you are?
+1. Predict, and write it on paper: what happens if you ask a private API for something and you do not say who you are?
 2. Open this URL in the browser:
 
 ```
@@ -303,7 +305,7 @@ send a POST with the JSON body `{"student":"Ana","subject":"Integrations"}` to t
 
 ## Slide 14 · Exit ticket
 
-Write one sentence: describe an integration you used today without noticing, and say which two systems talked to each other.
+Write one sentence on paper: describe an integration you used today without noticing, and say which two systems talked to each other.
 
 # After class
 

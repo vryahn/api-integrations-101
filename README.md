@@ -20,7 +20,7 @@ This class is a **Marsh volunteering activity**. The speaker gives it as a Marsh
 
 Open the [activity guide](activity-guide.md) and follow it with the slides.
 
-Bring a laptop: you do challenges 2 to 5 in [Hoppscotch](https://hoppscotch.io), in the browser. Do not install anything and do not create accounts. With a phone you can do Challenge 1 and use GET to check what your team does.
+Bring a laptop: you do challenges 2 to 5 in [Hoppscotch](https://hoppscotch.io), in the browser. Do not install anything and do not create accounts. Bring a pencil and paper too: you fill in a table, write your predictions and write the exit ticket. With a phone you can do Challenge 1 and use GET to check what your team does.
 
 ## After the class
 
