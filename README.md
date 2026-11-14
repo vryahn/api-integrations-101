@@ -14,6 +14,7 @@ This class is a **Marsh volunteering activity**. The speaker gives it as a Marsh
 | --- | --- |
 | [activity-guide.md](activity-guide.md) | The exercises, slide by slide, with the URLs ready to copy. At the end: review questions, the same exercise in code, a glossary and the answers. |
 | [slides.pdf](slides.pdf) | The 14 slides of the class. |
+| [Practice API](https://vryahn.github.io/api-integrations-101/) | Backup for challenges 2 to 4: a small API that runs inside your browser, with no account and no limit. The code is in [docs/](docs/). |
 
 ## During the class
 

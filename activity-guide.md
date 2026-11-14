@@ -456,6 +456,14 @@ Your crudcrud.com URL accepts 100 requests and works for 24 hours. If you lose i
 
 **Plan B if crudcrud.com does not answer** (Challenges 2 and 3): use `https://jsonplaceholder.typicode.com/posts` with the same methods. Note: that API only pretends. It does not save anything, so a GET of your new `id` returns 404 and the results of PUT and DELETE will not match the answers. Look only at the status codes.
 
+**Plan C if crudcrud.com or Hoppscotch does not work** (Challenges 2 and 3, and step 3 of Challenge 4): open the practice API:
+
+```
+https://vryahn.github.io/api-integrations-101/
+```
+
+It is a small API that runs inside your browser. The page has its own Send button, so you do not need Hoppscotch, a proxy or an account, and there is no request limit. Do the same steps with the same bodies. In the path box, write `characters` to create and `characters/YOUR_ID` for the other steps. The status codes are the same as with crudcrud.com: 201, 200, 404, 400 and 415. Two things to know: your data lives only in your browser, so your classmates cannot see it; and this API also has PATCH, so here you can try it.
+
 **Plan B if httpbin.org does not load** (Challenges 4 and 5): change `httpbin.org` to `httpbingo.org` in the same URL. The paths `/headers`, `/bearer` and `/get` work the same. The only difference: httpbingo shows each value inside `[ ]` (a list).
 
 ## Answers — do not read this before you try
