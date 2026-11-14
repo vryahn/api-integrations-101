@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice API · API Integrations 101</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--mut:#555;--line:#c8c8c8;--card:#f4f4f5;--ok:#0a7a2f;--bad:#c0262d;--btn:#1f4fd8;--btnfg:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#121214;--fg:#eee;--mut:#aaa;--line:#444;--card:#1e1e22;--ok:#4ade80;--bad:#ff7b80;--btn:#5b8cff;--btnfg:#0b0b0d}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:640px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:0 0 .25rem}
+p{margin:.25rem 0}
+label{display:block;font-size:.85rem;color:var(--mut);margin:.75rem 0 .2rem}
+select,input,textarea,button{font:inherit;color:var(--fg);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.5rem;max-width:100%}
+select,textarea{width:100%}
+textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.9rem;min-height:7rem}
+.path{display:flex;align-items:center;gap:.4rem}.path input{flex:1;min-width:0}
+#send{background:var(--btn);color:var(--btnfg);border:0;font-weight:600;margin-top:1rem;padding:.6rem 1.5rem}
+#send:disabled{opacity:.6}
+#wipe{font-size:.8rem;margin-top:1rem;float:right}
+#status{font-weight:700;margin-top:1.25rem}.ok{color:var(--ok)}.bad{color:var(--bad)}
+pre{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.6rem;overflow:auto;white-space:pre-wrap;word-break:break-word;margin:.4rem 0}
+.hint,footer{font-size:.85rem;color:var(--mut)}
+a{color:var(--btn)}
+</style>
+</head>
+<body>
+<main>
+<h1>Practice API</h1>
+<p>This API runs inside your browser. Your data stays on this device. No account, no limit.</p>
+<p>Use it if crudcrud.com or Hoppscotch does not work.</p>
+<label for="method">Method</label>
+<select id="method"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select>
+<label for="path">Path</label>
+<div class="path"><span>api/</span><input id="path" value="characters" autocapitalize="off" autocomplete="off" spellcheck="false"></div>
+<label for="ctype">Content-Type</label>
+<select id="ctype"><option>application/json</option><option>text/plain</option></select>
+<label for="body">Body</label>
+<textarea id="body" spellcheck="false"></textarea>
+<button id="send" disabled>Starting…</button>
+<button id="wipe" type="button">Delete all my data</button>
+<div id="status" aria-live="polite"></div>
+<pre id="out" hidden></pre>
+<p class="hint">Tip: press F12 → Network to see each request.</p>
+<footer><a href="https://github.com/vryahn/api-integrations-101/blob/main/activity-guide.md">Activity guide</a></footer>
+</main>
+<script>
+const $ = id => document.getElementById(id), send = $('send');
+const NAMES = {200:'OK',201:'Created',400:'Bad Request',404:'Not Found',405:'Method Not Allowed',415:'Unsupported Media Type'};
+async function start() {
+  if (!('serviceWorker' in navigator)) { send.textContent = 'This browser window cannot run the practice API. Open this page in a normal (not private) window.'; return; }
+  try {
+    await navigator.serviceWorker.register('sw.js');
+    await navigator.serviceWorker.ready;
+    if (!navigator.serviceWorker.controller) {
+      // ponytail: after a hard reload the page has no controller; one reload fixes it
+      if (!sessionStorage.getItem('reloaded')) { sessionStorage.setItem('reloaded', '1'); location.reload(); return; }
+      await new Promise(r => navigator.serviceWorker.addEventListener('controllerchange', r, { once: true }));
+    }
+    sessionStorage.removeItem('reloaded');
+    send.disabled = false; send.textContent = 'Send';
+  } catch (e) { send.textContent = 'Could not start: ' + e.message; }
+}
+send.onclick = async () => {
+  const method = $('method').value, opt = { method };
+  if (method !== 'GET') { opt.headers = { 'Content-Type': $('ctype').value }; if (method !== 'DELETE' || $('body').value) opt.body = $('body').value; }
+  const t = performance.now();
+  const r = await fetch('api/' + $('path').value, opt), text = await r.text();
+  const ms = Math.round(performance.now() - t);
+  $('status').className = r.status < 300 ? 'ok' : r.status >= 400 && r.status < 500 ? 'bad' : '';
+  $('status').textContent = r.status + ' ' + (NAMES[r.status] || '') + ' · ' + ms + ' ms';
+  let shown = text || '(empty body)';
+  try { if (text) shown = JSON.stringify(JSON.parse(text), null, 2); } catch (e) {}
+  $('out').textContent = shown; $('out').hidden = false;
+};
+$('wipe').onclick = async () => {
+  if (confirm('Delete all the data you saved in this practice API?')) { await caches.delete('api-integrations-101-db'); $('out').hidden = true; $('status').textContent = 'Data deleted.'; $('status').className = ''; }
+};
+start();
+</script>
+</body>
+</html>
