@@ -40,15 +40,15 @@ https://www.youtube.com/watch?v=dQw4w9WgXcQ&t=43s
 **Part B: an ad link.** Do not open it. Read it and complete the table.
 
 ```
-https://shop.example/sneakers?utm_source=facebook&utm_campaign=black_friday&fbclid=IwAR0x9
+https://shop.example/sneakers?utm_source=instagram&utm_campaign=buen_fin&fbclid=IwAR0x9
 ```
 
 | Part | In this link | What it says |
 | --- | --- | --- |
 | Server |  |  |
 | Path (endpoint) |  |  |
-| Parameter `utm_source` | `facebook` |  |
-| Parameter `utm_campaign` | `black_friday` |  |
+| Parameter `utm_source` | `instagram` |  |
+| Parameter `utm_campaign` | `buen_fin` |  |
 | Parameter `fbclid` | `IwAR0x9` |  |
 
 **Part C: the same thing, in an API.**
@@ -62,7 +62,7 @@ https://rickandmortyapi.com/api/character/1
 On a laptop, Chrome shows the data in one long line. Tick the **Pretty-print** box at the top to read it more easily.
 
 5. Select the URL in the `image` field (the text between the quotes), copy it and paste it in a new tab.
-6. Path parameter: change the `1` to `2`, or to any number you want.
+6. Path parameter: change the `1` to the day of your birthday (a number from 1 to 31). Who are you? Show your character to a classmate.
 7. Query parameters: filter.
 
 ```
@@ -91,12 +91,12 @@ On a laptop: press F12 → Network tab → reload, to see the status code.
 
 Time: 10 min · Laptop, with Hoppscotch · If you have a phone, work with a classmate who has a laptop: you check the changes with GET in your browser.
 
-| Method | What it does | In the restaurant | Has a body? |
+| Method | What it does | At the taquería | Has a body? |
 | --- | --- | --- | --- |
 | **GET** | Read | See the menu | No |
 | **POST** | Create | Order | Yes |
 | **PUT** | Replace everything | Change your whole order | Yes |
-| **PATCH** | Change one part | Change only the side dish | Yes |
+| **PATCH** | Change one part | Change one thing: no pineapple | Yes |
 | **DELETE** | Delete | Cancel the order | Usually no |
 
 The browser only does GET. For the other methods you use an API client or code. Open:
@@ -113,7 +113,7 @@ Three things to know before the first request:
 
 If your browser is in Spanish, Hoppscotch is in Spanish too: Interceptor = Interceptador, Body = Cuerpo, Headers = Encabezados, Send = Enviar, None = Ninguno, Network Error = Error de red.
 
-You will create your own character in an API that really saves the data.
+You will order tacos in an API that really saves the data.
 
 **1. Get your own API.** Open this page in a new tab. At the top, in a big box, there is a URL that is only yours: `https://crudcrud.com/api/` and a long key. Select it and copy it (there is no copy button). Do not copy the example lower on the page, the one that ends in `/unicorns`.
 
@@ -121,49 +121,49 @@ You will create your own character in an API that really saves the data.
 https://crudcrud.com
 ```
 
-**2. POST: create it.** Use the `POST` method with your URL and `/characters` at the end:
+**2. POST: order.** Use the `POST` method with your URL and `/orders` at the end:
 
 ```
-https://crudcrud.com/api/YOUR_KEY/characters
+https://crudcrud.com/api/YOUR_KEY/orders
 ```
 
-and this body (change the values, use invented data):
+and this body (change the values: order the tacos you really want, with an invented name):
 
 ```json
 {
-  "name": "Ana Sanchez",
-  "data": {
-    "species": "Human",
-    "planet": "Earth",
-    "power": "Debugging without sleep"
+  "customer": "Ana",
+  "order": {
+    "taco": "al pastor",
+    "quantity": 3,
+    "pineapple": true
   }
 }
 ```
 
-**You should see:** your character, with an `_id` from the server. **Copy that `_id`.**
+**You should see:** your order, with an `_id` from the server. **Copy that `_id`.**
 
-**3. GET: check it.** Use the `GET` method with the same URL and your `_id` at the end. You can also paste it in the browser, or give it to a classmate to see it on a phone:
+**3. GET: check your order.** Use the `GET` method with the same URL and your `_id` at the end. You can also paste it in the browser, or give it to a classmate: they open it on a phone and tell you what you ordered:
 
 ```
-https://crudcrud.com/api/YOUR_KEY/characters/YOUR_ID
+https://crudcrud.com/api/YOUR_KEY/orders/YOUR_ID
 ```
 
-**4. PUT: level it up.** Use the `PUT` method with the URL and your `_id`, and the whole character with a new name:
+**4. PUT: change your mind.** Use the `PUT` method with the URL and your `_id`, and the whole order with new tacos:
 
 ```json
 {
-  "name": "Ana Sanchez, level 2",
-  "data": {
-    "species": "Human",
-    "planet": "Earth",
-    "power": "Debugging without sleep"
+  "customer": "Ana",
+  "order": {
+    "taco": "suadero",
+    "quantity": 5,
+    "pineapple": false
   }
 }
 ```
 
-The response body is empty: look at the status code above it. Repeat the GET from step 3. **You should see:** the new name. Everything else is the same.
+The response body is empty: look at the status code above it. Repeat the GET from step 3. **You should see:** the new order, with the same `_id`.
 
-**5. DELETE: delete it.** Use the `DELETE` method with the URL and your `_id`. The response body is empty again.
+**5. DELETE: cancel it.** Use the `DELETE` method with the URL and your `_id`. The response body is empty again.
 
 **6. GET again.** Predict first: what status code will it return?
 
@@ -179,23 +179,23 @@ The body is the data that travels. You send it with POST, PUT and PATCH. The ser
 
 **How to read JSON:** braces `{ }` = one object · each line is `"key": value` · brackets `[ ]` = a list.
 
-1. Repeat the POST from Challenge 2 to create a new character, and copy its `_id`.
-2. Predict: if you send a **PUT** with only the name, what happens to `data`?
+1. Repeat the POST from Challenge 2 to create a new order, and copy its `_id`.
+2. Predict: if you send a **PUT** with only the customer, what happens to `order`?
 
 ```json
-{ "name": "I only have a name now" }
+{ "customer": "Ana" }
 ```
 
 3. Send that PUT to the URL with your `_id`. Then send a GET to the same URL and read the response:
 
 ```
-https://crudcrud.com/api/YOUR_KEY/characters/YOUR_ID
+https://crudcrud.com/api/YOUR_KEY/orders/YOUR_ID
 ```
 
-4. Now break the body: send a POST to your URL that ends in `/characters`. Replace the whole body with this JSON. The word Human has no quotes.
+4. Now break the body: send a POST to your URL that ends in `/orders`. Replace the whole body with this JSON. The word pastor has no quotes.
 
 ```
-{ "name": "Ana", "data": { "species": Human } }
+{ "customer": "Ana", "order": { "taco": pastor } }
 ```
 
 **Idea:** PUT replaces everything, so you send the whole resource. PATCH changes only what you send (this API does not have PATCH, but many APIs do). And if the body is wrong, the server does not guess: it tells you the request is bad.
@@ -224,7 +224,7 @@ https://httpbin.org/headers
 **You should see:** the headers YOUR browser sent. You did not ask for them. Compare with a classmate: a laptop and a phone send a different `User-Agent`.
 
 2. In Hoppscotch, send a `GET` to the same URL. First, add your own header in the **Headers** tab: key `X-Student`, value your name. Find it in the response. Look at `User-Agent` too: it is not your browser now. It is `Proxyscotch`, the proxy that sends the request for you.
-3. Predict: what happens if you send a JSON body but you say it is a different format? Repeat the POST from Challenge 2, with the correct body (with quotes around Human). In the **Body** tab, open the Content Type menu, go to the bottom of the list and choose `text/plain`. Keep the same JSON text and send.
+3. Predict: what happens if you send a JSON body but you say it is a different format? Repeat the POST from Challenge 2, with the correct body (the first one, with all its quotes). In the **Body** tab, open the Content Type menu, go to the bottom of the list and choose `text/plain`. Keep the same JSON text and send.
 
 **Idea:** the server reads the label first. If the label does not match the package, the server rejects it without opening it.
 
@@ -264,7 +264,7 @@ You will see an error page or an empty page: the server did not give you the dat
 
 Time: 7 min, in pairs
 
-**Who is who:** you are the store and your partner is the payment system. Your webhook.site URL is your "doorbell": you give it to the other system, so it can tell you when something happens. When your partner opens it, they ring that doorbell.
+**Who is who:** you are the taquería and your partner is the payment app. Your webhook.site URL is your "doorbell": you give it to the other system, so it can tell you when something happens. When your partner opens it, they ring that doorbell.
 
 1. Open this URL and copy your own URL ("Your unique URL"):
 
@@ -273,13 +273,13 @@ https://webhook.site
 ```
 
 2. Share your URL with your partner (by chat, or read it aloud).
-3. Your partner opens your URL in the browser with this at the end (use invented data):
+3. Your partner opens your URL in the browser with this at the end. Change the message: write something for your partner, with `_` in place of spaces:
 
 ```
-?name=Ana&message=hello
+?name=Ana&message=paid_3_tacos
 ```
 
-4. Look at your webhook.site screen.
+4. Look at your webhook.site screen and read the message aloud.
 
 **You should see:** a new request in the list, in real time, with `name`, `message` and its headers. Your partner only sees a short text ("This URL has no default content configured"). That is normal.
 
@@ -462,7 +462,7 @@ Your crudcrud.com URL accepts 100 requests and works for 24 hours. If you lose i
 https://vryahn.github.io/api-integrations-101/
 ```
 
-It is a small API that runs inside your browser. The page has its own Send button, so you do not need Hoppscotch, a proxy or an account, and there is no request limit. Do the same steps with the same bodies. In the path box, write `characters` to create and `characters/YOUR_ID` for the other steps. The status codes are the same as with crudcrud.com: 201, 200, 404, 400 and 415. Two things to know: your data lives only in your browser, so your classmates cannot see it; and this API also has PATCH, so here you can try it.
+It is a small API that runs inside your browser. The page has its own Send button, so you do not need Hoppscotch, a proxy or an account, and there is no request limit. Do the same steps with the same bodies. In the path box, write `orders` to create and `orders/YOUR_ID` for the other steps. The status codes are the same as with crudcrud.com: 201, 200, 404, 400 and 415. Two things to know: your data lives only in your browser, so your classmates cannot see it; and this API also has PATCH, so here you can try it.
 
 **Plan B if httpbin.org does not load** (Challenges 4 and 5): change `httpbin.org` to `httpbingo.org` in the same URL. The paths `/headers`, `/bearer` and `/get` work the same. The only difference: httpbingo shows each value inside `[ ]` (a list).
 
@@ -472,7 +472,7 @@ It is a small API that runs inside your browser. The page has its own Send butto
 
 **Challenge 2:** the last GET returns 404: you really deleted it. (When you create, the API answers 201, "created". PUT and DELETE answer 200.)
 
-**Challenge 3:** after the PUT, `data` is not there any more: PUT replaces the whole resource and you only sent the name. The broken body returns 400, "your request is bad".
+**Challenge 3:** after the PUT, `order` is not there any more: PUT replaces the whole resource and you only sent the customer. You have a name and no tacos. The broken body returns 400, "your request is bad".
 
 **Challenge 4:** 415, "I do not understand that format". The body was valid JSON, but the label said something different.
 
